@@ -1,0 +1,36 @@
+import sys
+
+def resolver():
+    for linha in sys.stdin:
+        r = linha.strip()
+        if not r:
+            continue
+            
+        soma_digitos = 0
+        maior_digito_valor = 1
+
+        for char in r:
+            if '0' <= char <= '9':
+                valor = ord(char) - ord('0')
+            elif 'A' <= char <= 'Z':
+                valor = ord(char) - ord('A') + 10
+            elif 'a' <= char <= 'z':
+                valor = ord(char) - ord('a') + 36
+            else:
+                continue
+            
+            soma_digitos += valor
+            if valor > maior_digito_valor:
+                maior_digito_valor = valor
+
+        encontrou = False
+        for n in range(maior_digito_valor + 1, 63):
+            if soma_digitos % (n - 1) == 0:
+                print(n)
+                encontrou = True
+                break
+        
+        if not encontrou:
+            print("such number is impossible!")
+
+resolver()
